@@ -4,7 +4,16 @@
 package ssliao.logging;
 
 public class Log {
-    public boolean someLibraryMethod() {
-        return true;
+	
+	private static Log INSTANCE;
+	
+    private Log() {
+    }
+    
+    public static Log getInstance() {
+    	if (INSTANCE == null) {
+    		INSTANCE = new Log();
+    	}
+		return INSTANCE;
     }
 }
