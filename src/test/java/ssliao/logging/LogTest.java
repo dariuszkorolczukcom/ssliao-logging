@@ -4,6 +4,10 @@
 package ssliao.logging;
 
 import org.junit.Test;
+
+import ssliao.logging.logstream.FileStream;
+import ssliao.logging.logstream.TerminalStream;
+
 import static org.junit.Assert.*;
 
 public class LogTest {
@@ -12,6 +16,13 @@ public class LogTest {
         Log log = Log.getInstance();
         Log log2 = Log.getInstance();
         assertTrue(log==log2);
+    }
+	
+    @Test public void testIsAbstractFactoryFileStream() {
+        Log log = Log.getInstance("file");
+        assertTrue(log.stream instanceof FileStream);
+        log = Log.getInstance("console");
+        assertTrue(log.stream instanceof FileStream);
     }
     
 }
