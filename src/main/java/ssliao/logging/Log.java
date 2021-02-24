@@ -3,6 +3,7 @@
  */
 package ssliao.logging;
 
+import ssliao.logging.builder.IColouredMessageBuilder;
 import ssliao.logging.factories.FileFactory;
 import ssliao.logging.factories.TerminalFactory;
 import ssliao.logging.logstream.LogStream;
@@ -11,6 +12,7 @@ public class Log {
 	
 	private static Log INSTANCE;
 	LogStream stream;
+	IColouredMessageBuilder messageBuilder;
     
     private Log(String stream) {
     	LogStream logStream = null;
@@ -54,6 +56,12 @@ public class Log {
 	public void debug(String message) {
 		this.stream.debug(message);
 
+	}
+	
+	public static void main(String... args) {
+		Log log = Log.getInstance("console");
+		
+		log.info("hello");
 	}
 	
 }

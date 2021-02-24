@@ -5,8 +5,13 @@ package ssliao.logging;
 
 import org.junit.Test;
 
+import ssliao.logging.builder.ColourMessageBuilder;
+import ssliao.logging.builder.DefaultMessageBuilder;
+import ssliao.logging.director.BuildersDirector;
 import ssliao.logging.logstream.FileStream;
-import ssliao.logging.logstream.TerminalStream;
+import ssliao.logging.message.DefaultMessage;
+import ssliao.logging.message.ErrorMessage;
+import ssliao.logging.util.MessageType;
 
 import static org.junit.Assert.*;
 
@@ -23,6 +28,30 @@ public class LogTest {
         assertTrue(log.stream instanceof FileStream);
         log = Log.getInstance("console");
         assertTrue(log.stream instanceof FileStream);
+    }
+	
+    @Test public void testIsBuilderConstructingInfotMessageProperly() {
+    	BuildersDirector director = new BuildersDirector();
+    	DefaultMessageBuilder  builder = new DefaultMessageBuilder();
+    	director.constructInfoMessage(builder);
+    	DefaultMessage message = builder.getMessage();
+    	assertEquals(message.getType(), MessageType.INFO);
+    }
+	
+    @Test public void testIsBuilderConstructingDebugMessageProperly() {
+    	BuildersDirector director = new BuildersDirector();
+    	ColourMessageBuilder  builder = new ColourMessageBuilder();
+    	director.constructDebugMessage(builder);
+    	ErrorMessage message = builder.getErrorMessage();
+    	assertEquals(message.getType(), MessageType.DEBUG);
+    }
+	
+    @Test public void testIsBuilderConstructingErrorMessageProperly() {
+    	BuildersDirector director = new BuildersDirector();
+    	ColourMessageBuilder  builder = new ColourMessageBuilder();
+    	director.constructErrorMessage(builder);
+    	ErrorMessage message = builder.getErrorMessage();
+    	assertEquals(message.getType(), MessageType.ERROR);
     }
     
 }
